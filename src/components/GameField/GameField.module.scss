@@ -1,0 +1,17 @@
+.field {
+  display: grid;
+  grid-template-columns: repeat(4, 150px);
+  //grid-template-rows: repeat(3, 1fr);
+  gap: 10px;
+  width: fit-content;
+  border-radius: 15px;
+  box-sizing: border-box;
+  padding: 10px;
+  //background-color: #282c34;
+  background-color: transparent;
+  //-webkit-box-shadow: 10px 10px 18px 0px rgba(0, 0, 0, 0.2);
+  //-moz-box-shadow: 10px 10px 18px 0px rgba(0, 0, 0, 0.2);
+  //box-shadow: 10px 10px 18px 0px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  overflow: visible;
+}

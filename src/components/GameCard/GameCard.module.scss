@@ -1,0 +1,70 @@
+.card {
+  position: relative;
+  width: 150px;
+  height: 220px;
+  cursor: pointer;
+  perspective: 800px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card__face, .card__back, .card__face_reversed, .card__back_reversed, .card__back_scaled {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: .5s;
+  backface-visibility: hidden;
+  background-color: black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.card__face_reversed {
+  transform: rotateY(180deg);
+}
+
+.card__back {
+  transform: rotateY(180deg);
+}
+
+.card__back_reversed {
+  transform: rotateY(360deg);
+}
+
+.card__back_scaled {
+  transform: rotateY(360deg);
+  animation-duration: .2s;
+  animation-timing-function: ease-in;
+  animation-delay: .6s;
+  //animation-direction: alternate;
+  //animation-iteration-count: 2;
+  animation-name: scale;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1);
+  }
+
+
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  //100% {
+  //  transform: scale(1);
+  //}
+}
+
+

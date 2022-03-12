@@ -1,0 +1,17 @@
+.game {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::after {
+    content: '';
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: .25;
+    z-index: 1;
+  }
+}
