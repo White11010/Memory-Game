@@ -88,11 +88,11 @@ const GameField = () => {
     const [cards, setCards] = useState<Cell[]>(shuffle(cells))
     const [reversedCards, setReversedCards] = useState<Cell[]>([])
     const [openedCards, setOpenedCards] = useState<Cell[]>([])
-    const [isTwoCards, setIsTwoCards] = useState<Boolean>(false)
+    // const [isTwoCards, setIsTwoCards] = useState<Boolean>(false)
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-        const card = openedCards.find(card => card.id.toString() === e.currentTarget.id)
-        if (!isTwoCards && card === undefined) {
+        const card: boolean = openedCards.some(card => card.id.toString() === e.currentTarget.id)
+        if (reversedCards.length !== 2 && !card && (reversedCards.length === 0 || reversedCards[0].id.toString() !== e.currentTarget.id)) {
             const index = cards.findIndex(card => card.id.toString() === e.currentTarget.id)
             const newState = [...cards]
             newState[index].isReversed = true;
@@ -105,7 +105,6 @@ const GameField = () => {
     useEffect(() => {
         if (reversedCards.length === 2) {
             if (reversedCards[0].image !== reversedCards[1].image) {
-                setIsTwoCards(true)
                 setTimeout(() => {
                     if (reversedCards[0].image !== reversedCards[1].image) {
                         const newState = cards.map(card => {
@@ -117,15 +116,13 @@ const GameField = () => {
                         setCards(newState)
                     }
                     setReversedCards([])
-                    setIsTwoCards(false)
-                }, 1500)
+                }, 1000)
             } else {
                 const matchedCards: Cell[] = cards.filter(card => card.id === reversedCards[0].id || card.id === reversedCards[1].id);
                 setOpenedCards([...openedCards, ...matchedCards])
-                setIsTwoCards(true)
+                // setIsTwoCards(true)
                 setTimeout(() => {
                     setReversedCards([])
-                    setIsTwoCards(false)
                 }, 800)
             }
         }
