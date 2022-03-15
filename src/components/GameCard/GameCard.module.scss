@@ -1,7 +1,9 @@
 .card {
   position: relative;
-  width: 150px;
-  height: 220px;
+  //width: 150px;
+  //height: 220px;
+  //min-width: 80px;
+  aspect-ratio: 15/22;
   cursor: pointer;
   perspective: 800px;
   -webkit-user-select: none;

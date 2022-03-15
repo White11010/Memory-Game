@@ -9,6 +9,9 @@ import cardImage4 from "../../assets/card-images/tg4.png"
 import cardImage5 from "../../assets/card-images/tg5.png"
 import cardImage6 from "../../assets/card-images/tg7.png"
 import {Cell} from "../../types/types";
+import {useDispatch} from "react-redux";
+import {addTimer, addMoves} from "../../features/counter/counterSlice";
+import {log} from "util";
 
 const cells: Cell[] = [
     {
@@ -73,6 +76,7 @@ const cells: Cell[] = [
     }
 ]
 
+
 const shuffle = (array: any[]) => {
     //Fisher–Yates shuffle
     for (let i = array.length - 1; i > 0; i--) {
@@ -85,12 +89,16 @@ const shuffle = (array: any[]) => {
 
 const GameField = () => {
 
+    const dispatch = useDispatch();
+
+    const [timerId, setTimerId] = useState<any>(0)
+    const [status, setStatus] = useState<'pending' | 'active' | 'finished'>('pending')
     const [cards, setCards] = useState<Cell[]>(shuffle(cells))
     const [reversedCards, setReversedCards] = useState<Cell[]>([])
     const [openedCards, setOpenedCards] = useState<Cell[]>([])
-    // const [isTwoCards, setIsTwoCards] = useState<Boolean>(false)
 
     const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+        setStatus('active');
         const card: boolean = openedCards.some(card => card.id.toString() === e.currentTarget.id)
         if (reversedCards.length !== 2 && !card && (reversedCards.length === 0 || reversedCards[0].id.toString() !== e.currentTarget.id)) {
             const index = cards.findIndex(card => card.id.toString() === e.currentTarget.id)
@@ -104,6 +112,7 @@ const GameField = () => {
 
     useEffect(() => {
         if (reversedCards.length === 2) {
+            dispatch(addMoves())
             if (reversedCards[0].image !== reversedCards[1].image) {
                 setTimeout(() => {
                     if (reversedCards[0].image !== reversedCards[1].image) {
@@ -119,14 +128,35 @@ const GameField = () => {
                 }, 1000)
             } else {
                 const matchedCards: Cell[] = cards.filter(card => card.id === reversedCards[0].id || card.id === reversedCards[1].id);
-                setOpenedCards([...openedCards, ...matchedCards])
-                // setIsTwoCards(true)
+                setOpenedCards(prevState => [...prevState, ...matchedCards])
+
                 setTimeout(() => {
                     setReversedCards([])
                 }, 800)
             }
         }
     }, [reversedCards])
+
+
+
+    useEffect(() => {
+        if (status === "active") {
+            const timer = setInterval(() => {
+                dispatch(addTimer())
+            }, 1000);
+            setTimerId(timer)
+        }
+        if (status === "finished") {
+            clearInterval(timerId)
+        }
+    },[status])
+
+    useEffect(() => {
+        if (openedCards.length === cards.length) {
+            setStatus("finished")
+        }
+    }, [openedCards])
+
 
     return (
         <div className={styles.field}>

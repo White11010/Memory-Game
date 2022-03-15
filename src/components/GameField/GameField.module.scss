@@ -1,9 +1,10 @@
 .field {
+  margin-bottom: 40px;
   display: grid;
-  grid-template-columns: repeat(4, 150px);
+  grid-template-columns: repeat(4, 1fr);
   //grid-template-rows: repeat(3, 1fr);
   gap: 10px;
-  width: fit-content;
+  width: 100%;
   border-radius: 15px;
   box-sizing: border-box;
   padding: 10px;

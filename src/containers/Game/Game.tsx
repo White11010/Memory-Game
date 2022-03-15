@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from "./Game.module.scss"
 import background from "../../assets/background.png";
 import GameField from "../../components/GameField/GameField";
+import Counter from "../../components/Counter/Counter";
 
 const Game = () => {
     return (
@@ -10,7 +11,10 @@ const Game = () => {
             className={styles.game}
             style={{ backgroundImage: `url(${background})` }}
         >
-            <GameField />
+            <div className={styles.wrapper}>
+                <Counter />
+                <GameField />
+            </div>
         </div>
     );
 };
