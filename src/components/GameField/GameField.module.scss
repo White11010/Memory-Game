@@ -1,6 +1,9 @@
 .field {
+  max-height: 80vh;
   margin-bottom: 40px;
   display: grid;
+  aspect-ratio: 65/70;
+  grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(4, 1fr);
   //grid-template-rows: repeat(3, 1fr);
   gap: 10px;
